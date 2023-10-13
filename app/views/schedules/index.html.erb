@@ -1,0 +1,65 @@
+<div>
+  <div>予定一覧</div>
+  <div><%= link_to "新規追加", new_schedule_path %></div>
+</div>
+<table>
+  <% @schedules.each do |schedule| %>
+  <tr>
+    <td>ID</td>
+    <td>タイトル</td>
+    <td>開始日</td>
+    <td>終了日</td>
+    <td>終日</td>
+    <td>更新日時</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><%= schedule.id %></td>
+    <td><%= schedule.title %></td>
+    <td><%= schedule.start_date.strftime("%Y/%m/%d") %></td>
+    <td><%= schedule.end_date.strftime("%Y/%m/%d") %></td>
+    <td><%= schedule.all_day ? "○" : ""  %></td>
+    <td><%= schedule.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
+    <td><%= link_to "詳細", schedule_path(schedule), class: 'btn btn-success' %></td>
+    <td><%= link_to "編集", edit_schedule_path(schedule), class: 'btn btn-info' %></td>
+    <td>
+      <button data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-bs-id="<%= schedule.id %>" class="btn btn-danger">削除</button>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+<div>
+  <div>
+    <p>予定合計 <%= @schedules.size %>件</p>
+  </div>
+  <div>
+    <p>本日の日付 <%= Date.current.strftime("%Y/%m/%d") %></p>
+  </div>
+</div>
+
+
+<!-- 削除確認モーダル -->
+<!-- Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmationModalLabel">削除確認</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        本当に削除してよろしいですか？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+        <%= link_to '削除', "#", method: :delete, class: 'btn btn-danger', id: 'deleteBtn' %>
+      </div>
+    </div>
+  </div>
+</div>
+

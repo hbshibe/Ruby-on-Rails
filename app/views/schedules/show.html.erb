@@ -1,0 +1,14 @@
+<div>
+  <%= link_to "一覧に戻る", schedules_path %>
+</div>
+<div>
+  <div><%= @schedule.title %></div>
+  <div><%= link_to "編集", edit_schedule_path(@schedule) %></div>
+</div>
+
+<div>
+  <div>開始日 <%= @schedule.start_date.strftime("%Y/%m/%d") %></div>
+  <div>終了日 <%= @schedule.end_date.strftime("%Y/%m/%d") %></div>
+  <div>終日 <%= @schedule.all_day ? "○" : "" %></div>
+  <div>スケジュールメモ <%= @schedule.memo %></div>
+</div>

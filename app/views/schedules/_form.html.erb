@@ -1,0 +1,43 @@
+<%= form_with(model: schedule, local: true) do |form| %>
+  <% if schedule.errors.any? %>
+    <div>
+      <h2><%= pluralize(schedule.errors.count, "エラー") %></h2>
+
+      <ul>
+      <% schedule.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date %>
+  </div>
+
+  <div>
+    <%= form.label :end_date %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div>
+    <%= form.label :all_day %>
+    <%= form.check_box :all_day %>
+  </div>
+
+  <div>
+    <%= form.label :memo %>
+    <%= form.text_area :memo %>
+  </div>
+
+  <div>
+    <%= link_to "キャンセル", schedules_path %>
+    <%= form.submit "保存" %>
+  </div>
+<% end %>
